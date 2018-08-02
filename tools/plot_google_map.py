@@ -1,5 +1,5 @@
 from gmplot import gmplot
-import glob,os,sys
+import glob,os,sys,argparse
 
 def extract_cordinate(gps_folder):
     lats,lons=[],[]
@@ -39,9 +39,16 @@ def draw_marker_map(lats,lons):
     # Draw
     gmap.draw("my_marker_map.html")
 
+def plot_google_map_arg_parser():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-g","--gps", required = True,help = "kitti gps folder")
+
+    args = vars(ap.parse_args())    
+    return args
+
 if __name__ == '__main__':
-    #len(sys.argv
-    lats,lons=extract_cordinate(sys.argv[1])
+    plot_google_map_ar = plot_google_map_arg_parser()
+    lats,lons=extract_cordinate(plot_google_map_ar['gps'])
     draw_polygon_map(lats,lons)
     draw_scatter_map(lats,lons)
     draw_marker_map(lats,lons)

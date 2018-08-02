@@ -1,6 +1,6 @@
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
-import os,sys
+import os,sys,argparse
 import unicodecsv as csv
 import numpy as np
 import seaborn as sns
@@ -76,8 +76,13 @@ def draw_histpgram(slam_info):
     #plt.title('orb-slam2 result')
     #plt.show()
 
+def slam_info_arg_parser():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-c","--csv", required = True,help = "orbslam2 csv file")
+
 if __name__ == '__main__':
-    slam_info=extract_slam_info(sys.argv[1])
+    slam_info_arg = slam_info_arg_parser()
+    slam_info=extract_slam_info(slam_info_arg['csv'])
     draw_histpgram(slam_info)
     #plt.hist(x, bins=20)
     #plt.ylabel('No of times')
